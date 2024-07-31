@@ -1,12 +1,16 @@
 import bodyParser from "body-parser";
 import express from "express";
 import controllers from "./controller.js";
+import dotenv from 'dotenv';
 
-const app = express();
-const jsonParser = bodyParser.json();
+const sendMessagesToKafka = async (messages) => {
+    for (const message of messages) {
+      console.log(message);
+      await controllers.sendMessageToKafka(message);
+    }
+};
 
-app.post("/api/send", jsonParser, controllers.sendMessageToKafka);
+const messages = await controllers.chamarProcedure()
 
-app.listen(8080, () => {
-    console.log("Server is running on port 8080.");
-});
+sendMessagesToKafka(messages)
+

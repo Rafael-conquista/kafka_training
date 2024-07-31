@@ -14,7 +14,6 @@ const transporter = nodemailer.createTransport({
   }
 });
 
-console.log(process.env.EMAIL_USER, process.env.EMAIL_PASS)
 const kafkaConfig = new KafkaConfig()
 
 function enviar_email(email_json){
